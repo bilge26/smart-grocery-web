@@ -1,4 +1,5 @@
 import { usePlan } from '../context/PlanContext';
+import Link from 'next/link';
 
 type Meal = 'kahvaltı' | 'öğle' | 'akşam' | 'tatlı';
 type Day =
@@ -56,9 +57,11 @@ export default function PlanPage() {
                     </p>
                     {plan[day]?.[meal] ? (
                       <>
-                        <p className="text-sm text-gray-900">
-                          {plan[day]?.[meal]?.name}
-                        </p>
+                        <Link href={`/recipes/${plan[day]?.[meal]?.id}`}>
+  <p className="text-sm text-black hover:text-gray-700">
+    {plan[day]?.[meal]?.name}
+  </p>
+</Link>
                         <p className="text-xs text-gray-500">
                           Mutfak: {plan[day]?.[meal]?.cuisine}
                         </p>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { usePlan } from '../context/PlanContext';
 
 const mealIcons: Record<string, string> = {
@@ -29,7 +30,11 @@ export default function HomePage() {
               <p className="font-semibold">{icon} {meal.charAt(0).toUpperCase() + meal.slice(1)}</p>
               {r ? (
                 <>
-                  <p>{r.name}</p>
+                  <Link href={`/recipes/${r.id}`}>
+                    <p className="text-base text-black hover:text-gray-700 cursor-pointer">
+                      {r.name}
+                    </p>
+                  </Link>
                   <p className="text-sm text-gray-500">Mutfak: {r.cuisine}</p>
                 </>
               ) : (

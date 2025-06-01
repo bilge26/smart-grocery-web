@@ -76,7 +76,15 @@ const meals: Meal[] = ['kahvaltı', 'öğle', 'akşam', 'tatlı'];
 export default function RecipeDetailPage({ recipe }: Props) {
   const [selectedDay, setSelectedDay] = useState<Day>('Pazartesi');
   const [selectedMeal, setSelectedMeal] = useState<Meal>('akşam');
+  const [isAdded, setIsAdded] = useState(false); // ✅ yeni eklendi
   const { addToPlan } = usePlan();
+
+  const handleAdd = () => {
+    addToPlan(selectedDay, selectedMeal, recipe);
+    setIsAdded(true);
+
+    setTimeout(() => setIsAdded(false), 1500); // 1.5 sn sonra sıfırla
+  };
 
   return (
     <div className="p-6">
@@ -123,13 +131,14 @@ export default function RecipeDetailPage({ recipe }: Props) {
             </option>
           ))}
         </select>
-
-        <button
-          onClick={() => addToPlan(selectedDay, selectedMeal, recipe)}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Plana Ekle
-        </button>
+<button
+  onClick={handleAdd}
+  className={`mt-2 w-full max-w-xs px-4 py-2 rounded text-white font-medium transition ${
+    isAdded ? 'bg-green-600' : 'bg-blue-600 hover:bg-blue-700'
+  }`}
+>
+  {isAdded ? 'Eklendi ✓' : 'Plana Ekle'}
+</button>
       </div>
     </div>
   );
